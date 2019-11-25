@@ -1,0 +1,45 @@
+@import "../variables";
+
+.groups {
+  // padding: 0 20px;
+}
+
+.dataRow {
+  margin: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  th {
+    height: 50px;
+  }
+
+  tr {
+    height: 40px;
+  }
+
+  tbody {
+    tr {
+      transition: 100ms;
+
+      td:last-child {
+        span {
+          margin: 0 10px;
+        }
+      }
+    }
+
+    tr:nth-child(2n) {
+      background: darken($color: $white, $amount: 3);
+    }
+
+    tr:hover{
+      background: darken($color: $white, $amount: 5);
+    }
+
+
+
+  }
+
+}

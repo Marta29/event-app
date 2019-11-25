@@ -1,0 +1,167 @@
+cimport React, { useState } from 'react';
+
+import firebase from '../firebase.js'
+import Scrum from './scrum/Scrum.js';
+import Online from './online/Online.js';
+
+
+export function AddGroup(props) {
+  const emptyGroup = {
+    name: "",
+    members: "",
+    meetings: {
+    },
+    dates: {
+      start:"",
+      end: ""
+    },
+    type: "online"
+  };
+
+  const [group, setGroup] = useState(emptyGroup);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const itemsRef = firebase.database().ref('groups');
+    const newGroup = {
+      id: 1,
+      name: group.name,
+      meetings: group.meetings,
+      members: group.members,
+      dates: {
+        start: "2019-10-31",
+        end: "2019-10-31"
+      },
+      type: group.type,
+      active: true
+    };
+
+    //TODO walidacja
+
+    console.log("n", newGroup);
+    itemsRef.push(newGroup);
+    console.log(emptyGroup, newGroup, 'tutaj??')
+    setGroup(emptyGroup);
+    props.history.push('/');
+  }
+
+  const anyDatechange = (e) => {
+    const attendendsObj = {};
+    console.log("group", group);
+    console.log("e", e);
+
+    group.members.split(",").forEach(at => {
+      attendendsObj[at] = false
+    })
+
+    const updatedGroup = {
+      ...group,
+      meetings: {
+        ...group.meetings,
+        [e.target.name]: {
+          date: e.target.value,
+          attendends: attendendsObj
+        }
+      }
+    };
+
+    setGroup(updatedGroup);
+  }
+
+  // const anyOnlineDateChange = (e) => {
+  //   console.log("anyOnlineDateChange", e);
+
+  //   const attendendsObj = {};
+  //   console.log("group", group);
+
+  //   group.members.split(",").forEach(at => {
+  //     attendendsObj[at] = false
+  //   })
+
+  //   const updatedGroup = {
+  //     ...group,
+  //     meetings: {
+  //       ...group.meetings,
+  //       [e.name]: {
+  //         date: e.value,
+  //         attendends: attendendsObj
+  //       }
+  //     }
+  //   };
+
+  //   // setGroup(updatedGroup);
+
+  // }
+
+  let meetingsSeletion = (
+      <Scrum anyDatechange={anyDatechange}/>
+  );
+
+  if(group.type === "online") {
+    console.log('elko 1', anyDatechange, group)
+    meetingsSeletion = (<Online anyDatechange={anyDatechange}/>);
+  }
+
+  return (
+    <div className="add-group-container">
+     <h3>Dodaj nową grupę</h3>
+     <div className="container">
+          <div className="row">
+            <div className='col col-md-3'></div>
+            <div className='col col-md-6'>
+          <form onSubmit={e => handleSubmit(e)}>
+            <div className="form-group">
+              <label htmlFor="type-group" className="grey-text">
+                Rodzaj zajęć
+              </label>
+              <select id="type-group" className="browser-default custom-select form-control" value={group.type} onChange={e => setGroup({...group, type: e.target.value})}>
+                <option value="scrum">Scrum Lab</option>
+                <option value="online">Online</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="name-group" className="grey-text">
+                Name
+              </label>
+              <input type="text" id="name-group" className="form-control" value={group.name} onChange={e => setGroup({...group, name: e.target.value})} />
+            </div>
+
+
+            <div className="form-group">
+              <label htmlFor="members-group" className="grey-text">
+                Uczestnicy (po przecinku)
+              </label>
+              <input type="text" id="members-group" className="form-control" value={group.members} onChange={e => {setGroup({...group, members:  e.target.value}); }} />
+            </div>
+
+
+            <div className="form-group">
+              <label htmlFor="date-start-group" className="grey-text">
+                Data rozpoczęcia
+              </label>
+              <input type="date" id="date-start-group" className="form-control" name="start-date" value={group.dates.start} onChange={e => setGroup({...group, dates: { ...group.dates, start: e.target.value } })}/>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="date-end-group" className="grey-text">
+                Data zakończenia
+              </label>
+              <input type="date" id="date-end-group" className="form-control" name="end-date" value={group.dates.end} onChange={e => setGroup({...group, dates: { ...group.dates, end: e.target.value } })} />
+            </div>
+
+            {meetingsSeletion}
+
+            <div className="form-group">
+              <button color="indigo" className="btn btn-primary" type="submit">Zapisz!</button>
+            </div>
+
+          </form>
+          {/*</div>*/}
+          {/*  <div className='col col-md-3'></div>*/}
+          {/*</div>*/}
+          {/*</div>*/}
+      </div>
+  )
+}

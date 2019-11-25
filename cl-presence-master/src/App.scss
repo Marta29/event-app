@@ -1,0 +1,81 @@
+@import "variables";
+
+// [class*='-container'] {
+//   margin-top: 20px;
+// }
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.app-container {
+  height: 100vh;
+  // display: grid;
+  // grid-template: 80px 1fr / 300px 1fr;
+
+  // grid-template-areas:
+  //   "header header"
+  //   "nav main";
+
+  // header {
+  //   grid-area: header;
+  //   background: #f7f7f7;
+  // }
+
+  // nav.main-menu {
+  //   grid-area: nav;
+  //   // background: $white;
+
+  //   ul {
+  //     list-style: none;
+  //     padding: 0;
+  //     margin: 20px 0;
+  //     display: flex;
+  //     flex-direction: column;
+  //     li {
+  //       display: block;
+  //       height: 50px;
+  //       transition: 200ms;
+  //       line-height: 50px;
+
+  //       &:hover {
+  //         background: #f7f7f7;
+  //       }
+
+  //       a {
+  //         display: block;
+  //         color: #a7b1c2;
+  //         width: 100%;
+  //         height: 100%;
+  //         text-decoration: none;
+  //       }
+  //     }
+  //   }
+
+  // }
+
+  // main {
+  //   grid-area: main;
+  //   background: #f7f7f7;
+  // }
+}
+

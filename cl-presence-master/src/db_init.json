@@ -1,0 +1,33 @@
+{
+  "groups": [
+    {
+      "id": "0",
+      "name": "WAR_FER_W_01",
+      "dates": {
+        "start": "2019-10-01",
+        "end": "2019-10-31"
+      },
+      "type": "",
+      "members":["Adam", "Ewa"],
+      "meetings": {
+        "2019-10-01" : {
+          "Adam": true,
+          "Ewa": true
+        },
+        "2019-10-02" : {
+          "Adam": null,
+          "Ewa": null
+        },
+        "2019-10-03" : {
+          "Adam": null,
+          "Ewa": null
+        },
+        "2019-10-04" : {
+          "Adam": null,
+          "Ewa": null
+        }
+      }
+    }
+  ]
+}
+
